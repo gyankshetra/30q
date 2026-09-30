@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gyankshetra - 32 Page Quiz</title>
+<style>
+:root{--green:#166534;--lgreen:#dcfce7;--mid:#22c55e}
+body{margin:0;font-family:system-ui;background:#f0fdf4}
+.header{background:var(--green);color:#fff;padding:16px;display:flex;gap:10px;align-items:center}
+.home{font-size:30px;font-weight:900;color:#fff}
+.logo{font-weight:800;font-size:20px}
+.subbar{background:var(--lgreen);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0}
+.badge{background:var(--green);color:#fff;padding:6px 14px;border-radius:20px;font-weight:800;cursor:pointer;border:none}
+.card{background:#fff;margin:14px;border-radius:18px;padding:16px;box-shadow:0 4px 12px rgba(0,0,0,.07)}
+.opt{border:1.6px solid #d1d5db;padding:12px;border-radius:12px;margin:8px 0;cursor:pointer}
+.opt.sel{border-color:var(--green);background:var(--lgreen);font-weight:700;color:#14532d}
+.btns{display:flex;gap:10px;padding:12px 14px 20px}
+.btn{flex:1;padding:14px;border-radius:12px;font-weight:800;border:none;cursor:pointer}
+.btn-g{background:var(--green);color:#fff}.btn-o{background:#fff;border:2px solid var(--green);color:var(--green)}
+#qPopup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99;align-items:center;justify-content:center}
+#qPopup.show{display:flex}
+.pbox{background:#fff;width:92%;max-width:360px;border-radius:20px;padding:16px;max-height:80vh;overflow:auto}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:12px}
+.qn{padding:11px;text-align:center;border-radius:10px;background:#e5e7eb;font-weight:700;cursor:pointer}
+.qn.act{background:var(--green);color:#fff}.qn.done{background:#bbf7d0}
+.fact{background:#f0fdf4;border-left:4px solid var(--mid);padding:8px 10px;margin:6px 0;border-radius:6px;font-size:13px}
+.tele{background:#229ED9;color:#fff}
+</style>
+</head>
+<body>
+<div class="header"><span class="home">⌂</span><span class="logo">Gyankshetra</span></div>
+<div class="subbar"><span id="chap" style="font-weight:700;color:#14532d">force. 1/30Q</span><button class="badge" id="qbadge" onclick="openPopup()">1/30Q</button></div>
+
+<div id="p-start" style="padding:20px">
+<h3>Welcome to Gyankshetra Quiz</h3>
+<input id="cName" placeholder="Enter full name..." style="width:100%;padding:14px;border-radius:12px;border:1.5px solid #ccc;margin:10px 0">
+<button class="btn btn-g" style="width:100%" onclick="startQuiz()">Start →</button>
+</div>
+
+<div id="p-quiz" style="display:none">
+<div class="card"><div id="qL" style="color:#166534;font-weight:700;font-size:13px"></div><h3 id="qT"></h3><div id="opts"></div></div>
+<div style="padding:0 14px"><div style="height:8px;background:#bbf7d0;border-radius:10px"><div id="bar" style="height:100%;background:#166534;width:0%"></div></div><div id="prog" style="font-size:12px;color:#166534;margin-top:5px"></div></div>
+<div class="btns"><button class="btn btn-o" onclick="prev()">Previous</button><button class="btn btn-g" id="nBtn" onclick="next()">Next →</button></div>
+</div>
+
+<div id="p-result" style="display:none;padding:14px">
+<div class="card" style="text-align:center"><h2>✓ Quiz Completed!</h2><h1 id="score" style="color:#166534"></h1><p id="scoreP"></p><div style="display:flex;gap:10px;justify-content:center"><span id="corr"></span><span id="incorr"></span></div></div>
+<div style="display:flex;flex-direction:column;gap:10px">
+<button class="btn btn-g" onclick="location.reload()">Restart ↻</button>
+<button class="btn btn-o" onclick="toggleReview()"><span>Review Analysis</span><span id="rvIcon">⬇ Maximize</span></button>
+<button class="btn tele" onclick="shareTG()">Share on Telegram ↗</button>
+</div>
+<div id="reviewBox" style="display:none;margin-top:14px"></div>
+</div>
+
+<div id="qPopup" onclick="if(event.target==this)closePopup()"><div class="pbox"><div style="display:flex;justify-content:space-between"><b>All Questions</b><span onclick="closePopup()" style="cursor:pointer">✕</span></div><div class="grid" id="grid"></div></div></div>
+
+<script>
+let raw=location.pathname.split('/').filter(Boolean).pop()||'chemical-reaction-quiz-01-30q';
+let cname=raw.replace(/-/g,' ').replace(/01 30q/gi,'').trim();
+document.getElementById('chap').innerText=cname.charAt(0).toUpperCase()+cname.slice(1)+' - force.';
+const Q=Array.from({length:30},(_,i)=>({
+q:`Q${i+1}: Chemical Reaction - Which is chemical change?`,
+opts:['Melting of ice','Boiling of water','Rusting of iron','Dissolving sugar'],ans:2,
+analysis:`AI Analysis Q${i+1}: Rusting chemical change hai Fe2O3 banta hai. BPSC TRE 4 me is concept se direct Q aata hai.`,
+facts:[`Fact 1: Rusting Redox hai, BPSC TRE 4 me 2 bar pucha.`,`Fact 2: Chemical me composition badalta hai.`,`Fact 3: 4Fe+3O2→2Fe2O3`,`Fact 4: Photosynthesis, Burning daily life examples.`,`Fact 5: TRE 4 me 60% Q NCERT 9-10 se.`]
+}));
+let cur=0,selAns=Array(30).fill(null);
+let grid=document.getElementById('grid');
+Q.forEach((_,i)=>{let d=document.createElement('div');d.className='qn';d.innerText=i+1;d.onclick=()=>{cur=i;showQ();closePopup();};grid.appendChild(d);});
+function openPopup(){document.getElementById('qPopup').classList.add('show');updGrid();}
+function closePopup(){document.getElementById('qPopup').classList.remove('show');}
+function updGrid(){[...grid.children].forEach((e,i)=>{e.className='qn'+(i==cur?' act':'')+(selAns[i]!=null&&i!=cur?' done':'');});}
+function startQuiz(){if(!cName.value){alert('Name likho');return;}document.getElementById('p-start').style.display='none';document.getElementById('p-quiz').style.display='block';showQ();}
+function showQ(){let qq=Q[cur];document.getElementById('qL').innerText='Question '+(cur+1)+' / 30';document.getElementById('qT').innerText=qq.q;document.getElementById('qbadge').innerText=(cur+1)+'/30Q';document.getElementById('prog').innerText='Progress: '+(cur+1)+' / 30';document.getElementById('bar').style.width=((cur+1)/30*100)+'%';document.getElementById('nBtn').innerText=cur==29?'Submit':'Next →';let o='';qq.opts.forEach((op,i)=>{o+=`<div class="opt ${selAns[cur]==i?'sel':''}" onclick="pick(${i})">${String.fromCharCode(65+i)}. ${op}</div>`});document.getElementById('opts').innerHTML=o;updGrid();}
+function pick(i){selAns[cur]=i;showQ();}
+function next(){if(cur<29){cur++;showQ();}else showResult();}
+function prev(){if(cur>0){cur--;showQ();}}
+function showResult(){document.getElementById('p-quiz').style.display='none';document.getElementById('p-result').style.display='block';let correct=selAns.filter((v,i)=>v==Q[i].ans).length;document.getElementById('score').innerText=correct+'/30';document.getElementById('scoreP').innerText='Name: '+cName.value+' | Score: '+Math.round(correct/30*100)+'%';document.getElementById('corr').innerText='Correct: '+correct;document.getElementById('incorr').innerText='Incorrect: '+(30-correct);let rb=document.getElementById('reviewBox');rb.innerHTML='';Q.forEach((qq,i)=>{let d=document.createElement('div');d.className='card';d.innerHTML=`<b style="color:#166534">Q${i+1}</b>: ${qq.q}<br><br><b>✓ Correct:</b> ${qq.opts[qq.ans]}<br><b>Your:</b> ${selAns[i]!=null?qq.opts[selAns[i]]:'Not Attempted'}<br><br><b>🤖 AI Analysis:</b> ${qq.analysis}<br><br><b>🔥 BPSC TRE 4 - 5 Facts:</b>${qq.facts.map(f=>`<div class="fact">${f}</div>`).join('')}`;rb.appendChild(d);});}
+function toggleReview(){let rb=document.getElementById('reviewBox');let ic=document.getElementById('rvIcon');if(rb.style.display=='none'){rb.style.display='block';ic.innerText='⬆ Minimize';}else{rb.style.display='none';ic.innerText='⬇ Maximize';}}
+function shareTG(){let correct=selAns.filter((v,i)=>v==Q[i].ans).length;let name=cName.value||'Student';let text=`*Gyankshetra Quiz Result*%0A👤 Name: ${name}%0A📚 Chapter: ${cname}%0A✅ Score: ${correct}/30 (${Math.round(correct/30*100)}%)%0A🔗 https://gyankshetra.github.io/chemical-reaction-quiz-01-30q/%0A📢 Join: https://t.me/gyankshetra`;window.open('https://t.me/share/url?url=https://gyankshetra.github.io/chemical-reaction-quiz-01-30q/&text='+text,'_blank');}
+</script>
+</body>
+</html>
