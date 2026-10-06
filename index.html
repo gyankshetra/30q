@@ -5,239 +5,138 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#0757b8">
 <title>Gyankshetra</title>
-
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#f4f7fb;color:#17243b;font-family:Arial,sans-serif}
-.header{
-background:linear-gradient(135deg,#063879,#0874d9);
-color:white;padding:18px 16px 25px;
-border-radius:0 0 25px 25px
-}
-.logo{font-size:25px;font-weight:900}
-.tag{font-size:12px;margin-top:4px;opacity:.85}
-.search{
-background:white;color:#8995a5;
-padding:13px;border-radius:14px;margin-top:17px
-}
-.main{padding:15px 14px 90px;max-width:550px;margin:auto}
-h3{font-size:18px;margin:20px 2px 10px}
-
-.stats{
-display:grid;grid-template-columns:repeat(3,1fr);
-gap:8px;margin-top:-5px
-}
-.stat{
-background:white;border-radius:13px;
-padding:12px;text-align:center
-}
-.stat b{display:block;color:#0865c4;font-size:20px}
-.stat small{color:#78869a}
-
-.card{
-background:white;border-radius:16px;
-padding:16px;margin:10px 0;
-box-shadow:0 3px 15px #163b5b12
-}
-.hero{
-background:linear-gradient(135deg,#e8f3ff,#fff);
-border:1px solid #d7e8fb
-}
-.hero-title{font-size:20px;font-weight:800}
-.muted{color:#78869a;font-size:12px;margin-top:5px}
-
-.grid{
-display:grid;grid-template-columns:1fr 1fr;
-gap:10px
-}
-.box{
-background:white;border-radius:15px;
-padding:16px;text-align:center;
-box-shadow:0 3px 12px #173a5b10
-}
-.box-icon{font-size:28px}
-.box b{display:block;margin-top:7px}
-.box small{color:#78869a}
-
-button{
-border:0;border-radius:11px;
-padding:11px 16px;font-weight:800
-}
-.primary{
-background:#0866cb;color:white;
-width:100%;margin-top:13px
-}
-
-.subject{
-display:flex;align-items:center;
-gap:12px;padding:15px
-}
-.subject-icon{font-size:28px}
-.subject span{flex:1}
-.subject small{display:block;color:#78869a;margin-top:4px}
-
-.bottom{
-position:fixed;bottom:0;left:0;right:0;
-background:white;border-top:1px solid #e2e7ee;
-display:flex;justify-content:space-around;
-padding:9px 3px
-}
-.bottom a{
-text-decoration:none;color:#6f7b8c;
-text-align:center;font-size:11px
-}
-.bottom b{display:block;font-size:19px}
-.bottom a:first-child{color:#0866cb;font-weight:bold}
+*{box-sizing:border-box}body{margin:0;background:#f4f7fb;color:#17243b;font-family:Arial,sans-serif}
+.app{max-width:600px;margin:auto;min-height:100vh}.header{background:linear-gradient(135deg,#063879,#0874d9);color:#fff;padding:18px 16px 25px;border-radius:0 0 25px 25px}
+.logo{font-size:25px;font-weight:900}.tag{font-size:12px;margin-top:4px;opacity:.85}.search{background:#fff;color:#8995a5;padding:13px;border-radius:14px;margin-top:17px}
+.main{padding:15px 14px 90px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#fff;border-radius:13px;padding:12px;text-align:center}.stat b{display:block;color:#0865c4;font-size:20px}.stat small,.muted,small{color:#78869a}
+h3{font-size:18px;margin:20px 2px 10px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.box,.card{background:#fff;border-radius:16px;padding:16px;box-shadow:0 3px 15px #163b5b12}.box{text-align:center}.box-icon{font-size:28px}.box b{display:block;margin-top:7px}.hero{background:linear-gradient(135deg,#e8f3ff,#fff);border:1px solid #d7e8fb}
+button{border:0;border-radius:11px;padding:11px 16px;font-weight:800}.primary{background:#0866cb;color:white;width:100%;margin-top:13px}
+.subject{display:flex;align-items:center;gap:12px}.subject span{flex:1}.subject small{display:block;margin-top:4px}
+.bottom{position:fixed;bottom:0;left:0;right:0;max-width:600px;margin:auto;background:#fff;border-top:1px solid #e2e7ee;display:flex;justify-content:space-around;padding:9px 3px;z-index:20}.bottom button{background:none;color:#6f7b8c;padding:5px;font-size:19px}.bottom small{display:block;font-size:10px}.bottom .active{color:#0866cb}
+.page{display:none}.page.active{display:block}
+.quiztop{background:#073b82;color:#fff;padding:14px;margin:0 -14px 14px;display:flex;justify-content:space-between}.qcard{background:#fff;border-radius:16px;padding:16px}.qnum{color:#0866cb;font-weight:bold}.question{font-size:18px;line-height:1.5}.option{padding:13px;border:1px solid #dbe4ee;border-radius:11px;margin:8px 0}.option.selected{background:#eaf4ff;border-color:#0866cb}.option.correct{background:#e8f8ed;border-color:#28a45b}.analysis{background:#eff9f1;border-left:4px solid #28a45b;padding:12px;margin-top:13px;border-radius:8px;font-size:13px;line-height:1.55}.actions{display:flex;gap:8px}.actions button{flex:1;margin-top:12px}.palette{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-top:12px}.p{padding:8px;text-align:center;background:#edf1f5;border-radius:7px;font-size:12px}.p.done{background:#cdebd8}.p.current{background:#0866cb;color:white}
+.resultcircle{width:125px;height:125px;border:9px solid #27a85c;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:20px auto;font-size:28px;font-weight:900;color:#176b40}.resultgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.resultgrid div{background:#fff;padding:13px;text-align:center;border-radius:13px}.resultgrid b,.resultgrid small{display:block}.rowline{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #edf0f4}
 </style>
 </head>
-
 <body>
-
+<div class="app">
 <header class="header">
-<div class="logo">Gyankshetra</div>
-<div class="tag">पढ़ें • अभ्यास करें • टेस्ट दें</div>
-
-<div class="search">
-🔎 &nbsp; विषय, अध्याय या टेस्ट खोजें
-</div>
+<div class="logo">Gyankshetra</div><div class="tag">पढ़ें • अभ्यास करें • टेस्ट दें</div>
+<div class="search">🔎 &nbsp; विषय, अध्याय या टेस्ट खोजें</div>
 </header>
 
 <main class="main">
-
-<div class="stats">
-<div class="stat"><b>30</b><small>Questions</small></div>
-<div class="stat"><b>30</b><small>Marks</small></div>
-<div class="stat"><b>0</b><small>Negative</small></div>
-</div>
-
+<section id="home" class="page active">
+<div class="stats"><div class="stat"><b>30</b><small>Questions</small></div><div class="stat"><b>30</b><small>Marks</small></div><div class="stat"><b>0</b><small>Negative</small></div></div>
 <h3>मुख्य तैयारी</h3>
-
 <div class="grid">
-
-<div class="box">
-<div class="box-icon">📝</div>
-<b>Mock Test</b>
-<small>30 Questions</small>
+<div class="box" onclick="openTest()">📝<b>Mock Test</b><small>30 Questions</small></div>
+<div class="box" onclick="show('subjects')">📚<b>Subjects</b><small>विषयवार टेस्ट</small></div>
+<div class="box" onclick="show('points')">⭐<b>Important</b><small>Exam Points</small></div>
+<div class="box" onclick="show('result')">📊<b>Result</b><small>Analysis</small></div>
 </div>
-
-<div class="box">
-<div class="box-icon">📚</div>
-<b>Subjects</b>
-<small>विषयवार टेस्ट</small>
-</div>
-
-<div class="box">
-<div class="box-icon">⭐</div>
-<b>Important</b>
-<small>Exam Points</small>
-</div>
-
-<div class="box">
-<div class="box-icon">📊</div>
-<b>Result</b>
-<small>Analysis</small>
-</div>
-
-</div>
-
 <h3>आज का टेस्ट</h3>
-
-<div class="card hero">
-
-<div class="hero-title">
-🧪 विलयन (Solutions)
-</div>
-
-<div class="muted">
-रसायन विज्ञान • 30 प्रश्न • 30 अंक
-</div>
-
-<a href="https://gyankshetra.github.io/30q/">
-<button class="primary">
-टेस्ट शुरू करें →
-</button>
-</a>
-
-</div>
-
+<div class="card hero"><b style="font-size:19px">🧪 विलयन (Solutions)</b><div class="muted" style="margin-top:6px">रसायन विज्ञान • 30 प्रश्न • 30 अंक • No Negative</div><button class="primary" onclick="openTest()">टेस्ट शुरू करें →</button></div>
 <h3>विषय</h3>
+<div class="card subject" onclick="show('subjects')">🧪 <span><b>रसायन विज्ञान</b><small>Chapter-wise Test</small></span>→</div>
+<div class="card subject" onclick="show('subjects')">🧬 <span><b>जीव विज्ञान</b><small>Chapter-wise Test</small></span>→</div>
+<div class="card subject" onclick="show('subjects')">📜 <span><b>इतिहास</b><small>Chapter-wise Test</small></span>→</div>
+</section>
 
-<div class="card subject">
-<div class="subject-icon">🧪</div>
-<span>
-<b>रसायन विज्ञान</b>
-<small>Chapter-wise Test</small>
-</span>
-→
-</div>
+<section id="subjects" class="page">
+<h3>📚 Subjects & Chapters</h3>
+<div class="card subject">🧪 <span><b>रसायन विज्ञान</b><small>विलयन (Solutions)</small></span><button onclick="openTest()">Test</button></div>
+<div class="card subject">🧬 <span><b>जीव विज्ञान</b><small>Chapter-wise Practice</small></span>→</div>
+<div class="card subject">📜 <span><b>इतिहास</b><small>Chapter-wise Practice</small></span>→</div>
+<div class="card subject">🌍 <span><b>भूगोल</b><small>Chapter-wise Practice</small></span>→</div>
+</section>
 
-<div class="card subject">
-<div class="subject-icon">🧬</div>
-<span>
-<b>जीव विज्ञान</b>
-<small>Chapter-wise Test</small>
-</span>
-→
-</div>
+<section id="tests" class="page">
+<h3>📝 Mock Tests</h3>
+<div class="card"><b>🧪 विलयन — STET / BPSC TRE-4</b><small>30 प्रश्न • 30 अंक • +1 सही • 0 गलत</small><button class="primary" onclick="openTest()">Start Test</button></div>
+</section>
 
-<div class="card subject">
-<div class="subject-icon">📜</div>
-<span>
-<b>इतिहास</b>
-<small>Chapter-wise Test</small>
-</span>
-→
-</div>
+<section id="quiz" class="page">
+<div class="quiztop"><b>विलयन • <span id="qn">1/30</span></b><b>⏱ <span id="timer">30:00</span></b></div>
+<div class="qcard"><div class="qnum">प्रश्न <span id="num">1</span> / 30</div><h2 class="question" id="question"></h2><div id="options"></div><div id="analysis" class="analysis" style="display:none"></div><div class="actions"><button onclick="prevQ()">← पिछला</button><button class="primary" onclick="nextQ()">अगला →</button></div></div>
+<div class="card"><b>Question Palette</b><div class="palette" id="palette"></div></div>
+</section>
 
-<div class="card subject">
-<div class="subject-icon">🌍</div>
-<span>
-<b>भूगोल</b>
-<small>Chapter-wise Test</small>
-</span>
-→
-</div>
+<section id="result" class="page">
+<h3>📊 Result & Analysis</h3><div class="resultcircle" id="score">0%</div>
+<div class="resultgrid"><div>✅<b id="correct">0</b><small>सही</small></div><div>❌<b id="wrong">0</b><small>गलत</small></div><div>⭕<b id="skip">0</b><small>छोड़े</small></div></div>
+<div class="card"><div class="rowline"><span>कुल अंक</span><b id="marks">0 / 30</b></div><div class="rowline"><span>Negative Marking</span><b>नहीं</b></div><button class="primary" onclick="show('points')">⭐ 150 Important Points देखें</button></div>
+</section>
 
-<h3>Gyankshetra में</h3>
-
-<div class="card">
-<p>📝 Objective Mock Tests</p>
-<p>⭐ प्रत्येक प्रश्न के Important Points</p>
-<p>📊 Result & Analysis</p>
-<p>🔖 Important Questions</p>
-<p>📱 Mobile Friendly App Design</p>
-</div>
-
+<section id="points" class="page">
+<h3>⭐ 5 Important Points — प्रत्येक प्रश्न</h3>
+<div class="card"><b>1. मोलरता</b><p class="muted">M = विलेय के मोल / विलयन का लीटर आयतन। तापमान बदलने पर आयतन बदल सकता है।</p></div>
+<div class="card"><b>2. मोललता</b><p class="muted">m = विलेय के मोल / विलायक का kg द्रव्यमान। यह तापमान से लगभग अप्रभावित रहती है।</p></div>
+<div class="card"><b>3. हेनरी का नियम</b><p class="muted">निश्चित तापमान पर द्रव में गैस की विलेयता उसके आंशिक दाब से संबंधित होती है।</p></div>
+<div class="card"><b>4. राउल्ट का नियम</b><p class="muted">आदर्श विलयन में घटक का आंशिक वाष्प-दाब उसके मोल-अंश से संबंधित होता है।</p></div>
+<div class="card"><b>5. अणुसंख्य गुणधर्म</b><p class="muted">ये विलेय कणों की संख्या पर निर्भर करते हैं, उनकी प्रकृति पर नहीं।</p></div>
+</section>
 </main>
 
 <nav class="bottom">
-
-<a href="#">
-<b>⌂</b>
-Home
-</a>
-
-<a href="#subjects">
-<b>▦</b>
-Subjects
-</a>
-
-<a href="https://gyankshetra.github.io/30q/">
-<b>✓</b>
-Tests
-</a>
-
-<a href="#result">
-<b>◉</b>
-Result
-</a>
-
-<a href="#profile">
-<b>♙</b>
-Profile
-</a>
-
+<button id="bhome" class="active" onclick="show('home')">⌂<small>Home</small></button>
+<button onclick="show('subjects')">▦<small>Subjects</small></button>
+<button onclick="show('tests')">✓<small>Tests</small></button>
+<button onclick="show('result')">◉<small>Result</small></button>
+<button onclick="show('points')">⭐<small>Important</small></button>
 </nav>
+</div>
 
+<script>
+const qs=[
+["विलयन की मोलरता किस पर निर्भर करती है?",["विलयन के आयतन पर","केवल रंग पर","केवल दाब पर","केवल ताप पर"],0],
+["मोलरता की इकाई क्या है?",["mol kg⁻¹","mol L⁻¹","kg mol⁻¹","L kg⁻¹"],1],
+["मोललता किस पर आधारित होती है?",["विलयन के आयतन पर","विलायक के द्रव्यमान पर","विलेय के आयतन पर","दाब पर"],1],
+["मोललता की इकाई क्या है?",["mol L⁻¹","mol kg⁻¹","g L⁻¹","kg L⁻¹"],1],
+["हेनरी का नियम किससे संबंधित है?",["द्रव में गैस की विलेयता","ठोस का गलनांक","घनत्व","चालकता"],0],
+["राउल्ट का नियम किससे संबंधित है?",["वाष्प-दाब","pH","परासरण","घनत्व"],0],
+["आदर्श विलयन में मिश्रण की ऊष्मा क्या होती है?",["शून्य","बहुत अधिक","ऋणात्मक अनंत","हमेशा धनात्मक"],0],
+["अणुसंख्य गुणधर्म किस पर निर्भर करते हैं?",["विलेय कणों की संख्या","विलेय का रंग","विलायक का रंग","पात्र के आकार"],0],
+["परासरण किसका प्रवाह है?",["विलायक का अर्धपारगम्य झिल्ली से प्रवाह","विलेय का प्रवाह","गैस का प्रवाह","ऊष्मा का प्रवाह"],0],
+["परासरण दाब का प्रतीक क्या है?",["π","α","β","λ"],0],
+["तापमान बढ़ाने पर अधिकांश गैसों की द्रव में विलेयता?",["घटती है","बढ़ती है","अपरिवर्तित रहती है","शून्य हो जाती है"],0],
+["गैस की विलेयता सामान्यतः दाब बढ़ाने पर?",["बढ़ती है","घटती है","अपरिवर्तित रहती है","पहले शून्य होती है"],0],
+["मोल-अंश की कुल मात्रा कितनी होती है?",["0","1","10","100"],1],
+["विलेय + विलायक से क्या बनता है?",["विलयन","तत्व","धातु","गैस"],0],
+["समांगी मिश्रण को क्या कहते हैं?",["विलयन","निलंबन","कोलॉइड","अवक्षेप"],0],
+["मोलरता तापमान से क्यों प्रभावित हो सकती है?",["आयतन बदल सकता है","मोल बदल जाते हैं","परमाणु बदल जाते हैं","द्रव्यमान शून्य हो जाता है"],0],
+["मोललता तापमान से लगभग अप्रभावित क्यों रहती है?",["द्रव्यमान पर आधारित है","आयतन पर आधारित है","दाब पर आधारित है","रंग पर आधारित है"],0],
+["आदर्श विलयन राउल्ट के नियम का पालन करता है?",["पूर्णतः","कभी नहीं","केवल गैस में","केवल ठोस में"],0],
+["वाष्प-दाब किस अवस्था से संबंधित है?",["वाष्प और द्रव","केवल ठोस","केवल गैस","केवल प्लाज्मा"],0],
+["अवाष्पशील विलेय मिलाने पर विलायक का वाष्प-दाब?",["घटता है","बढ़ता है","समान रहता है","शून्य ही होता है"],0],
+["क्वथनांक वृद्धि किस प्रकार का गुणधर्म है?",["अणुसंख्य","रासायनिक","परमाणु","चुंबकीय"],0],
+["हिमांक अवनमन किस प्रकार का गुणधर्म है?",["अणुसंख्य","विद्युत","परमाणु","प्रकाशीय"],0],
+["परासरण दाब किस प्रकार का गुणधर्म है?",["अणुसंख्य","चुंबकीय","ध्वनिक","परमाणु"],0],
+["सापेक्ष वाष्प-दाब अवनमन किससे जुड़ा है?",["विलेय के मोल-अंश से","केवल रंग से","केवल दाब से","केवल पात्र से"],0],
+["समान ताप पर मोललता की गणना में हर में क्या आता है?",["विलायक का kg द्रव्यमान","विलयन का L","विलेय का kg","दाब"],0],
+["मोलरता की गणना में हर में क्या आता है?",["विलयन का L आयतन","विलायक का kg","विलेय का kg","मोल-अंश"],0],
+["अर्धपारगम्य झिल्ली मुख्यतः किसे रोकती है?",["विलेय कणों को","सभी अणुओं को","केवल प्रकाश को","ऊष्मा को"],0],
+["विलयन में अधिक मात्रा वाला घटक सामान्यतः?",["विलायक","विलेय","अवक्षेप","गैस"],0],
+["विलयन की सांद्रता बताने की एक विधि?",["मोलरता","केवल रंग","केवल ताप","केवल दाब"],0],
+["STET/TRE में मोलरता और मोललता का मुख्य अंतर?",["आयतन बनाम द्रव्यमान आधार","रंग बनाम दाब","गैस बनाम ठोस","ताप बनाम प्रकाश"],0]
+];
+let qi=0,ans=Array(30).fill(null),time=1800,finished=false;
+function show(id){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.bottom button').forEach(x=>x.classList.remove('active'));window.scrollTo(0,0)}
+function openTest(){qi=0;finished=false;show('quiz');render()}
+function render(){
+let q=qs[qi];document.getElementById('qn').textContent=(qi+1)+"/30";document.getElementById('num').textContent=qi+1;document.getElementById('question').textContent=q[0];
+document.getElementById('options').innerHTML=q[1].map((o,i)=>`<div class="option ${ans[qi]===i?'selected':''}" onclick="choose(${i})">${String.fromCharCode(65+i)}. ${o}</div>`).join('');
+let a=document.getElementById('analysis');a.style.display=ans[qi]===null?'none':'block';a.innerHTML=ans[qi]===q[2]?`<b>✅ सही उत्तर: ${String.fromCharCode(65+q[2])}. ${q[1][q[2]]}</b>`:`<b>❌ सही उत्तर: ${String.fromCharCode(65+q[2])}. ${q[1][q[2]]}</b>`;
+a.innerHTML+=`<br><b>⭐ 5 महत्वपूर्ण बिंदु</b><ol><li>परिभाषा और सूत्र याद रखें।</li><li>सही इकाई परीक्षा में महत्वपूर्ण है।</li><li>मोलरता विलयन के आयतन पर आधारित है।</li><li>मोललता विलायक के द्रव्यमान पर आधारित है।</li><li>तापमान का प्रभाव संबंधित प्रश्नों में पूछा जा सकता है।</li></ol>`;
+document.getElementById('palette').innerHTML=qs.map((_,i)=>`<span class="p ${ans[i]!==null?'done':''} ${i===qi?'current':''}" onclick="qi=${i};render()">${i+1}</span>`).join('');
+}
+function choose(i){ans[qi]=i;render()}
+function nextQ(){if(qi<29){qi++;render()}else finish()}
+function prevQ(){if(qi>0){qi--;render()}}
+function finish(){let c=ans.filter((a,i)=>a===qs[i][2]).length,w=ans.filter((a,i)=>a!==null&&a!==qs[i][2]).length,s=ans.filter(a=>a===null).length;document.getElementById('score').textContent=Math.round(c/30*100)+"%";document.getElementById('correct').textContent=c;document.getElementById('wrong').textContent=w;document.getElementById('skip').textContent=s;document.getElementById('marks').textContent=c+" / 30";show('result')}
+setInterval(()=>{if(time>0&&!finished){time--;let m=Math.floor(time/60),s=time%60;document.getElementById('timer').textContent=String(m).padStart(2,'0')+":"+String(s).padStart(2,'0')}},1000);
+render();
+</script>
 </body>
-  </html>
+                                                                                                                                                                </html>
